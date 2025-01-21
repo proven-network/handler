@@ -1,3 +1,5 @@
+import { CommittedTransactionInfo } from "@radixdlt/babylon-gateway-api-sdk";
+
 type JSONSerializable =
   | string
   | number
@@ -7,17 +9,16 @@ type JSONSerializable =
   | JSONSerializable[]
   | { [key: string]: JSONSerializable };
 
+interface RpcHandlerOptions {
+  allowedOrigins?: string[];
+  memory?: number;
+  timeout?: number;
+}
+
 export function runWithOptions<
   A extends JSONSerializable[],
   R extends JSONSerializable | Promise<JSONSerializable> | void | Promise<void>,
->(
-  fn: (...args: A) => R,
-  options?: {
-    allowedOrigins?: string[];
-    memory?: number;
-    timeout?: number;
-  }
-): (...args: A) => R {
+>(fn: (...args: A) => R, options: RpcHandlerOptions): (...args: A) => R {
   return fn;
 }
 
@@ -32,16 +33,36 @@ interface HttpRequest<Path extends string = string> {
   pathVariables: ExtractPathVariables<Path>;
 }
 
+interface HttpHandlerOptions<P extends string> {
+  allowedOrigins?: string[];
+  memory?: number;
+  path: P;
+  timeout?: number;
+}
+
 export function runOnHttp<
-  Path extends string,
+  P extends string,
   R extends JSONSerializable | Promise<JSONSerializable>,
 >(
-  fn: (request: HttpRequest<Path>) => R,
-  options: {
-    memory?: number;
-    path: Path;
-    timeout?: number;
-  }
-): (request: HttpRequest<Path>) => R {
+  fn: (request: HttpRequest<P>) => R,
+  options: HttpHandlerOptions<P>
+): (request: HttpRequest<P>) => R {
+  return fn;
+}
+
+interface RadixEventHandlerOptions {
+  allowedOrigins?: string[];
+  eventEmitter?: string;
+  eventName?: string;
+  memory?: number;
+  timeout?: number;
+}
+
+export function runOnRadixEvent<
+  R extends JSONSerializable | Promise<JSONSerializable>,
+>(
+  fn: (transaction: CommittedTransactionInfo) => R,
+  options?: RadixEventHandlerOptions
+): (transaction: CommittedTransactionInfo) => R {
   return fn;
 }

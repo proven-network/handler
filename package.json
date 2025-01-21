@@ -1,18 +1,18 @@
 {
   "name": "@proven-network/handler",
   "description": "Customise settings for function handlers inside Proven runtime",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "homepage": "https://proven.network",
-  "main": "dist/proven-dapp-toolkit.mjs",
+  "main": "dist/handler.mjs",
   "exports": {
     ".": {
       "import": {
         "types": "./types/index.d.ts",
-        "default": "./dist/proven-dapp-toolkit.mjs"
+        "default": "./dist/handler.mjs"
       },
       "require": {
         "types": "./types/index.d.ts",
-        "default": "./dist/proven-dapp-toolkit.umd.js"
+        "default": "./dist/handler.umd.js"
       }
     }
   },
@@ -27,13 +27,14 @@
   "devDependencies": {
     "@babel/preset-env": "7.26.0",
     "@babel/preset-typescript": "7.26.0",
+    "@radixdlt/babylon-gateway-api-sdk": "1.9.2",
     "@types/elliptic": "6.4.18",
     "babel-preset-vite": "1.1.3",
     "elliptic": "6.6.1",
     "prettier": "3.4.2",
     "ts-node": "10.9.2",
     "typescript": "5.7.3",
-    "vite": "6.0.7",
+    "vite": "6.0.11",
     "vite-plugin-singlefile": "2.1.0"
   }
 }
