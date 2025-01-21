@@ -1,7 +1,7 @@
 {
   "name": "@proven-network/handler",
   "description": "Customise settings for function handlers inside Proven runtime",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "homepage": "https://proven.network",
   "main": "dist/handler.mjs",
   "exports": {
@@ -27,6 +27,8 @@
   "devDependencies": {
     "@babel/preset-env": "7.26.0",
     "@babel/preset-typescript": "7.26.0",
+    "@proven-network/crypto": "^0.0.4",
+    "@proven-network/sql": "^0.0.16",
     "@radixdlt/babylon-gateway-api-sdk": "1.9.2",
     "@types/elliptic": "6.4.18",
     "babel-preset-vite": "1.1.3",

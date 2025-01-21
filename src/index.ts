@@ -1,4 +1,5 @@
 import { CommittedTransactionInfo } from "@radixdlt/babylon-gateway-api-sdk";
+import { SqlRows } from "@proven-network/sql";
 
 type Input =
   | string
@@ -14,6 +15,7 @@ type Output =
   | number
   | boolean
   | null
+  | SqlRows<Record<string, null | number | string | Uint8Array>>
   | Uint8Array
   | Output[]
   | { [key: string]: Output };
