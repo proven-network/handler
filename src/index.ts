@@ -1,24 +1,33 @@
 import { CommittedTransactionInfo } from "@radixdlt/babylon-gateway-api-sdk";
 
-type JSONSerializable =
+type Input =
   | string
   | number
   | boolean
   | null
   | Uint8Array
-  | JSONSerializable[]
-  | { [key: string]: JSONSerializable };
+  | Output[]
+  | { [key: string]: Output };
 
-interface RpcHandlerOptions {
+type Output =
+  | string
+  | number
+  | boolean
+  | null
+  | Uint8Array
+  | Output[]
+  | { [key: string]: Output };
+
+export interface RpcHandlerOptions {
   allowedOrigins?: string[];
   memory?: number;
   timeout?: number;
 }
 
 export function runWithOptions<
-  A extends JSONSerializable[],
-  R extends JSONSerializable | Promise<JSONSerializable> | void | Promise<void>,
->(fn: (...args: A) => R, options: RpcHandlerOptions): (...args: A) => R {
+  I extends Input[],
+  O extends Input | Promise<Input> | void | Promise<void>,
+>(fn: (...args: I) => O, options: RpcHandlerOptions): (...args: I) => O {
   return fn;
 }
 
@@ -33,7 +42,7 @@ interface HttpRequest<Path extends string = string> {
   pathVariables: ExtractPathVariables<Path>;
 }
 
-interface HttpHandlerOptions<P extends string> {
+export interface HttpHandlerOptions<P extends string> {
   allowedOrigins?: string[];
   memory?: number;
   path: P;
@@ -42,15 +51,15 @@ interface HttpHandlerOptions<P extends string> {
 
 export function runOnHttp<
   P extends string,
-  R extends JSONSerializable | Promise<JSONSerializable>,
+  O extends Input | Promise<Input> | void | Promise<void>,
 >(
-  fn: (request: HttpRequest<P>) => R,
+  fn: (request: HttpRequest<P>) => O,
   options: HttpHandlerOptions<P>
-): (request: HttpRequest<P>) => R {
+): (request: HttpRequest<P>) => O {
   return fn;
 }
 
-interface RadixEventHandlerOptions {
+export interface RadixEventHandlerOptions {
   allowedOrigins?: string[];
   eventEmitter?: string;
   eventName?: string;
@@ -58,11 +67,9 @@ interface RadixEventHandlerOptions {
   timeout?: number;
 }
 
-export function runOnRadixEvent<
-  R extends JSONSerializable | Promise<JSONSerializable>,
->(
-  fn: (transaction: CommittedTransactionInfo) => R,
+export function runOnRadixEvent(
+  fn: (transaction: CommittedTransactionInfo) => void | Promise<void>,
   options?: RadixEventHandlerOptions
-): (transaction: CommittedTransactionInfo) => R {
-  return fn;
+): void {
+  return;
 }
