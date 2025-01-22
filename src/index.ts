@@ -41,6 +41,9 @@ type ExtractPathVariables<Path extends string> =
       : Record<string, never>;
 
 interface HttpRequest<Path extends string = string> {
+  body?: Uint8Array;
+  method: "GET" | "POST" | "PUT" | "DELETE" | "PATCH";
+  path: string;
   pathVariables: ExtractPathVariables<Path>;
 }
 
