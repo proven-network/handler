@@ -45,6 +45,7 @@ interface HttpRequest<Path extends string = string> {
   method: "GET" | "POST" | "PUT" | "DELETE" | "PATCH";
   path: string;
   pathVariables: ExtractPathVariables<Path>;
+  queryVariables: Record<string, string>;
 }
 
 export interface HttpHandlerOptions<P extends string> {
