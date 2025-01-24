@@ -1,7 +1,7 @@
 {
   "name": "@proven-network/handler",
   "description": "Customise settings for function handlers inside Proven runtime",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "homepage": "https://proven.network",
   "main": "dist/handler.mjs",
   "exports": {

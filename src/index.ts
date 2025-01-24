@@ -7,8 +7,8 @@ type Input =
   | boolean
   | null
   | Uint8Array
-  | Output[]
-  | { [key: string]: Output };
+  | Input[]
+  | { [key: string]: Input };
 
 type Output =
   | string
@@ -28,14 +28,14 @@ export interface RpcHandlerOptions {
 
 export function run<
   I extends Input[],
-  O extends Input | Promise<Input> | void | Promise<void>,
+  O extends Output | Promise<Output> | void | Promise<void>,
 >(fn: (...args: I) => O): (...args: I) => O {
   return fn;
 }
 
 export function runWithOptions<
   I extends Input[],
-  O extends Input | Promise<Input> | void | Promise<void>,
+  O extends Output | Promise<Output> | void | Promise<void>,
 >(options: RpcHandlerOptions, fn: (...args: I) => O): (...args: I) => O {
   return fn;
 }
@@ -64,7 +64,7 @@ export interface HttpHandlerOptions<P extends string> {
 
 export function runOnHttp<
   P extends string,
-  O extends Input | Promise<Input> | void | Promise<void>,
+  O extends Output | Promise<Output> | void | Promise<void>,
 >(
   options: HttpHandlerOptions<P>,
   fn: (request: HttpRequest<P>) => O
