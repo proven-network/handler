@@ -21,14 +21,12 @@ yarn add -D @proven-network/handler
 ### RPC Handlers
 
 ```typescript
-import { runWithOptions } from "@proven-network/handler";
+import { run, runWithOptions } from "@proven-network/handler";
 
-// Simple RPC handler
-// No need to use `runWithOptions` if you don't need to customize the handler
-// Defaults to 32MB memory and 5000ms timeout
-export const add = (a: number, b: number) => {
+// RPC handler with no options
+export const add = run((a: number, b: number) => {
   return a + b;
-};
+});
 
 // RPC handler with options
 export const subtract = runWithOptions(
@@ -50,25 +48,25 @@ import { runOnHttp } from "@proven-network/handler";
 
 // Simple HTTP handler with path parameters
 export const getUser = runOnHttp(
+  {
+    path: "/users/:userId",
+  },
   (request) => {
     const { userId } = request.pathVariables;
     return { id: userId, name: "John Doe" };
-  },
-  {
-    path: "/users/:userId",
   }
 );
 
 // HTTP handler with additional options
 export const createUser = runOnHttp(
-  (request) => {
-    const { orgId } = request.pathVariables;
-    return { success: true };
-  },
   {
     path: "/organizations/:orgId/users",
     memory: 256,
     timeout: 2000,
+  },
+  (request) => {
+    const { orgId } = request.pathVariables;
+    return { success: true };
   }
 );
 ```

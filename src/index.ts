@@ -26,10 +26,17 @@ export interface RpcHandlerOptions {
   timeout?: number;
 }
 
+export function run<
+  I extends Input[],
+  O extends Input | Promise<Input> | void | Promise<void>,
+>(fn: (...args: I) => O): (...args: I) => O {
+  return fn;
+}
+
 export function runWithOptions<
   I extends Input[],
   O extends Input | Promise<Input> | void | Promise<void>,
->(fn: (...args: I) => O, options: RpcHandlerOptions): (...args: I) => O {
+>(options: RpcHandlerOptions, fn: (...args: I) => O): (...args: I) => O {
   return fn;
 }
 
@@ -59,23 +66,31 @@ export function runOnHttp<
   P extends string,
   O extends Input | Promise<Input> | void | Promise<void>,
 >(
-  fn: (request: HttpRequest<P>) => O,
-  options: HttpHandlerOptions<P>
+  options: HttpHandlerOptions<P>,
+  fn: (request: HttpRequest<P>) => O
 ): (request: HttpRequest<P>) => O {
   return fn;
 }
 
-export interface RadixEventHandlerOptions {
-  allowedOrigins?: string[];
-  eventEmitter?: string;
-  eventName?: string;
-  memory?: number;
-  timeout?: number;
-}
+export type RadixEventHandlerOptions =
+  | {
+      allowedOrigins?: string[];
+      eventEmitter?: string;
+      eventName: string;
+      memory?: number;
+      timeout?: number;
+    }
+  | {
+      allowedOrigins?: string[];
+      eventEmitter: string;
+      eventName?: string;
+      memory?: number;
+      timeout?: number;
+    };
 
 export function runOnRadixEvent(
-  fn: (transaction: CommittedTransactionInfo) => void | Promise<void>,
-  options?: RadixEventHandlerOptions
+  options: RadixEventHandlerOptions,
+  fn: (transaction: CommittedTransactionInfo) => void | Promise<void>
 ): void {
   return;
 }
