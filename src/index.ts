@@ -22,7 +22,6 @@ type Output =
 
 export interface RpcHandlerOptions {
   allowedOrigins?: string[];
-  memory?: number;
   timeout?: number;
 }
 
@@ -57,7 +56,6 @@ interface HttpRequest<Path extends string = string> {
 
 export interface HttpHandlerOptions<P extends string> {
   allowedOrigins?: string[];
-  memory?: number;
   path: P;
   timeout?: number;
 }
@@ -77,14 +75,12 @@ export type RadixEventHandlerOptions =
       allowedOrigins?: string[];
       eventEmitter?: string;
       eventName: string;
-      memory?: number;
       timeout?: number;
     }
   | {
       allowedOrigins?: string[];
       eventEmitter: string;
       eventName?: string;
-      memory?: number;
       timeout?: number;
     };
 

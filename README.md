@@ -35,7 +35,6 @@ export const subtract = runWithOptions(
   },
   {
     allowedOrigins: ["https://example.com"],
-    memory: 128,
     timeout: 30000,
   }
 );
@@ -61,7 +60,6 @@ export const getUser = runOnHttp(
 export const createUser = runOnHttp(
   {
     path: "/organizations/:orgId/users",
-    memory: 256,
     timeout: 2000,
   },
   (request) => {
