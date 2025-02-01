@@ -1,7 +1,7 @@
 {
   "name": "@proven-network/handler",
   "description": "Customise settings for function handlers inside Proven runtime",
-  "version": "0.0.11",
+  "version": "0.0.13",
   "homepage": "https://proven.network",
   "main": "dist/handler.mjs",
   "exports": {
@@ -25,7 +25,7 @@
     "build": "tsc && vite build && vite build --config vite-single-file.config.ts"
   },
   "devDependencies": {
-    "@babel/preset-env": "7.26.0",
+    "@babel/preset-env": "7.26.7",
     "@babel/preset-typescript": "7.26.0",
     "@proven-network/crypto": "^0.0.4",
     "@proven-network/sql": "^0.0.16",

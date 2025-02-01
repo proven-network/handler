@@ -46,16 +46,19 @@ type ExtractPathVariables<Path extends string> =
       ? { [K in Param]: string }
       : Record<string, never>;
 
-interface HttpRequest<Path extends string = string> {
+export interface HttpRequest<Path extends string = string> {
   body?: Uint8Array;
+  headers: Record<string, string>;
   method: "GET" | "POST" | "PUT" | "DELETE" | "PATCH";
   path: string;
-  pathVariables: ExtractPathVariables<Path>;
-  queryVariables: Record<string, string>;
+  pathParameters: ExtractPathVariables<Path>;
+  queryParameters: Record<string, string>;
 }
 
 export interface HttpHandlerOptions<P extends string> {
   allowedOrigins?: string[];
+  attestation?: "always" | "request";
+  method?: "GET" | "POST" | "PUT" | "DELETE" | "PATCH";
   path: P;
   timeout?: number;
 }
